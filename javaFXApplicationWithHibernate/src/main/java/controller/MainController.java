@@ -18,6 +18,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -57,6 +58,8 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         showUsers(getUsersList());
         getSelected();
+        editButton.setVisible(false);
+        deleteButton.setVisible(false);
     }
 
     public ObservableList<User> getUsersList() {
@@ -99,4 +102,29 @@ public class MainController implements Initializable {
             deleteButton.setVisible(true);
         });
     }
+
+    public void findByLoginList() throws IOException, SQLException {
+        if (!findByLogin.getText().isEmpty())
+            showUsers(dao.findByLogin(findByLogin.getText()));
+        else showUsers(getUsersList());
+        editButton.setVisible(false);
+        deleteButton.setVisible(false);
+    }
+
+    public void findByIdList() throws IOException, SQLException {
+        if (!findById.getText().isEmpty())
+            showUsers(dao.findById(Long.parseLong(findById.getText())));
+        else showUsers(getUsersList());
+        editButton.setVisible(false);
+        deleteButton.setVisible(false);
+    }
+
+/*
+    public void findByAccessList() throws IOException, SQLException {
+        if (findByAccess.getValue() != null)
+            showUsers(dao.findByAccess((AccessLevel)findByAccess.getValue()));
+        else showUsers(getUsersList());
+        editButton.setVisible(false);
+        deleteButton.setVisible(false);
+    }*/
 }

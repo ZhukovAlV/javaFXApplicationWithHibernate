@@ -16,9 +16,9 @@
             </columns>
         </TableView>
         <Button fx:id="exitButton" layoutX="168.0" layoutY="395.0" mnemonicParsing="false" onAction="#exitButton" prefHeight="36.0" prefWidth="111.0" text="Выход" />
-<!--        <Button fx:id="deleteButton" layoutX="296.0" layoutY="395.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="36.0" prefWidth="118.0" text="Удалить" />
-        <Button fx:id="editButton" layoutX="434.0" layoutY="395.0" mnemonicParsing="false" onAction="#editButton" prefHeight="36.0" prefWidth="118.0" text="Редактировать" />
-        <Button fx:id="insertButton" layoutX="571.0" layoutY="395.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="36.0" prefWidth="111.0" text="Создать" />-->
+        <Button fx:id="deleteButton" layoutX="296.0" layoutY="395.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="118.0" text="Удалить" />
+        <Button fx:id="editButton" layoutX="434.0" layoutY="395.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="118.0" text="Редактировать" />
+        <!--     <Button fx:id="insertButton" layoutX="571.0" layoutY="395.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="36.0" prefWidth="111.0" text="Создать" />-->
         <MenuBar prefHeight="25.0" prefWidth="695.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
@@ -48,9 +48,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-<!--                <TextField fx:id="findById" onAction="#findByIdList" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="findById" onAction="#findByIdList" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="findByLogin" onAction="#findByLoginList" prefHeight="25.0" prefWidth="445.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <ComboBox fx:id="findByAccess" onAction="#findByAccessList" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />-->
+                <!--            <ComboBox fx:id="findByAccess" onAction="#findByAccessList" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="5" GridPane.rowIndex="1" /> -->
                 <Label contentDisplay="RIGHT" text="id:" textAlignment="RIGHT" GridPane.rowIndex="1" />
                 <Label contentDisplay="RIGHT" prefHeight="17.0" prefWidth="46.0" text="Логин:" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <Label contentDisplay="RIGHT" text="Уровень доступа:" textAlignment="RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="1" />
