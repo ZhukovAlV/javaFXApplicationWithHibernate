@@ -53,9 +53,8 @@ public class MainController implements Initializable {
         showUsers(getUsersList());
     }
 
-    public ObservableList<User> getUsersList() throws IOException {
-        ObservableList<User> observableListPerson = FXCollections.observableArrayList(dao.findAll());
-        return observableListPerson;
+    public ObservableList<User> getUsersList() {
+        return dao.findAll();
     }
 
     public void showUsers(ObservableList<User> list) {

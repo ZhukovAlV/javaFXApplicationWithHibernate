@@ -1,9 +1,10 @@
 package dao;
 
 import entity.User;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
 public interface DAO {
-    List<User> findAll();
+    ObservableList<User> findAll();
 }
