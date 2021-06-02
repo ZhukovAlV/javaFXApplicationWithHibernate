@@ -133,4 +133,17 @@ public class MainController implements Initializable {
         dao.deleteUserDao(selectedUser);
         showUsers(getUsersList());
     }
+
+    @FXML
+    private void insertButton() throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/view/secondPane.fxml"));
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Создать нового пользователя");
+
+        stage.showAndWait();
+        showUsers(getUsersList());
+    }
 }
