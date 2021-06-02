@@ -11,9 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
@@ -25,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     DAO dao = new DaoImpl();
+    User selectedUser = null;
 
     @FXML
     private Button exitButton;
@@ -46,11 +45,18 @@ public class MainController implements Initializable {
     private TableColumn<User, LocalDateTime> dateOfCreationColumn;
     @FXML
     private TableColumn<User, LocalDateTime> dateOfModificationColumn;
+    @FXML
+    private TextField findByLogin;
+    @FXML
+    private TextField findById;
+    @FXML
+    private ComboBox findByAccess;
 
     @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showUsers(getUsersList());
+        getSelected();
     }
 
     public ObservableList<User> getUsersList() {
@@ -83,5 +89,14 @@ public class MainController implements Initializable {
     private void exitButton() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    public void getSelected() {
+        tableView.setOnMouseClicked(t -> {
+            selectedUser = tableView.getSelectionModel().getSelectedItem();
+            editButton.setVisible(true);
+            deleteButton.setVisible(true);
+        });
     }
 }
