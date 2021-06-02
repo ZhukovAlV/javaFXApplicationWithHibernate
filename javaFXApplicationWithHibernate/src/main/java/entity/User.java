@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Table (name = "user")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,14 +40,5 @@ public class User {
         setPassword(password);
         setAccessLvl(accesLvl);
         setDateOfCreation(dateOfCreation);
-    }
-
-    public User(Long id, String login, String password, AccessLevel accesLvl, LocalDateTime dateOfCreation, LocalDateTime dateOfModification) {
-        setId(id);
-        setLogin(login);
-        setPassword(password);
-        setAccessLvl(accesLvl);
-        setDateOfCreation(dateOfCreation);
-        setDateOfModification(dateOfModification);
     }
 }

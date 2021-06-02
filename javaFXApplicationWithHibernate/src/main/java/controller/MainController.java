@@ -4,7 +4,6 @@ import dao.DAO;
 import dao.DaoImpl;
 import entity.AccessLevel;
 import entity.User;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
