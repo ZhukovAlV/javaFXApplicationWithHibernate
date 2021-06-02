@@ -130,7 +130,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void deleteButton() throws IOException, SQLException {
-        dao.deleteUserDao(selectedUser);
+        dao.deleteUser(selectedUser);
         showUsers(getUsersList());
     }
 
@@ -143,6 +143,25 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Создать нового пользователя");
 
+        stage.showAndWait();
+        showUsers(getUsersList());
+    }
+
+    @FXML
+    public void editButton() throws IOException {
+        // Загрузчик для новой сцены
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/secondPane.fxml"));
+        Parent parent = loader.load();
+
+        // Передаем данные полей юзера в новую сцену
+        SecondController controller = loader.getController();
+        controller.preloadData(selectedUser);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Редактировать рользователя");
+
+        // Ждем закрытия нового окна и обновляем список в текущем окне
         stage.showAndWait();
         showUsers(getUsersList());
     }

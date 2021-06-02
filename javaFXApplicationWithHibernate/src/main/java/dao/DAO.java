@@ -6,12 +6,14 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public interface DAO {
     ObservableList<User> findAll();
     ObservableList<User> findByLogin(String login) throws IOException, SQLException;
     ObservableList<User> findById(Long id) throws IOException, SQLException;
     /*  ObservableList<User> findByAccess(AccessLevel accessLevel) throws IOException, SQLException;*/
-    void deleteUserDao(User user);
+    void deleteUser(User user);
+    void insertUser(String login, String password, AccessLevel accesLvl);
+    void updateUser(Long id, String login, String password, AccessLevel accesLvl);
+    ObservableList<AccessLevel> getAccessLevelList();
 }

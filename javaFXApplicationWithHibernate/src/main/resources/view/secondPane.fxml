@@ -50,7 +50,7 @@
                 <TextField fx:id="dateOfModification" disable="true" />
             </children>
         </VBox>
-        <!--<Button fx:id="okButton" layoutX="436.0" layoutY="383.0" mnemonicParsing="false" onAction="#insertOrUpdateUser" prefHeight="36.0" prefWidth="135.0" text="Ок" />-->
+        <Button fx:id="okButton" layoutX="436.0" layoutY="383.0" mnemonicParsing="false" onAction="#insertOrUpdateUser" prefHeight="36.0" prefWidth="135.0" text="Ок" />
         <Button fx:id="cancelButton" layoutX="232.0" layoutY="383.0" mnemonicParsing="false" onAction="#cancelButton" prefHeight="36.0" prefWidth="160.0" text="Отмена" />
     </children>
 </AnchorPane>

@@ -18,6 +18,11 @@ public class AccessLevel {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy="accessLvl")
-    private Set<User> users;
+/*    @OneToMany(mappedBy="accessLvl")
+    private Set<User> users;*/
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

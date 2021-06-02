@@ -10,10 +10,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class DaoImpl implements DAO {
 
@@ -70,11 +68,45 @@ public class DaoImpl implements DAO {
 
     }*/
 
+    public ObservableList<AccessLevel> getAccessLevelList() {
+        ObservableList<AccessLevel> listAccessLevel = FXCollections.observableArrayList();
+        Session session = sessionFactory.openSession();
+
+        for (Object accessLevel : session.createQuery("FROM AccessLevel").list()) {
+            listAccessLevel.add((AccessLevel) accessLevel);
+        }
+        session.close();
+
+        return listAccessLevel;
+    }
+
     @Override
-    public void deleteUserDao(User user) {
+    public void deleteUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();;
         session.delete(user);
+        transaction.commit();
+        session.close();
+    }
+
+    public void insertUser(String login, String password, AccessLevel accesLvl) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        User user = new User(login, password, accesLvl, LocalDateTime.now());
+        session.save(user);
+
+        transaction.commit();
+        session.close();
+    }
+
+    public void updateUser(Long id, String login, String password, AccessLevel accesLvl) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        User user = new User(id, login, password, accesLvl, findById(id).get(0).getDateOfCreation(), LocalDateTime.now());
+        session.update(user);
+
         transaction.commit();
         session.close();
     }

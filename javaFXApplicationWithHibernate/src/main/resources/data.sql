@@ -2,7 +2,6 @@ CREATE TABLE user (
     id bigint NOT NULL AUTO_INCREMENT,
     login varchar(255),
     password varchar(255),
-    accesslvl bigint,
     dateofcreation datetime,
     dateofmodification datetime,
     PRIMARY KEY (ID),
