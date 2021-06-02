@@ -58,6 +58,7 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         showUsers(getUsersList());
         getSelected();
+        findByAccess.setItems(dao.getAccessLevelList());
         editButton.setVisible(false);
         deleteButton.setVisible(false);
     }
@@ -103,7 +104,7 @@ public class MainController implements Initializable {
         });
     }
 
-    public void findByLoginList() throws IOException, SQLException {
+    public void findByLoginList() {
         if (!findByLogin.getText().isEmpty())
             showUsers(dao.findByLogin(findByLogin.getText()));
         else showUsers(getUsersList());
@@ -111,7 +112,7 @@ public class MainController implements Initializable {
         deleteButton.setVisible(false);
     }
 
-    public void findByIdList() throws IOException, SQLException {
+    public void findByIdList() {
         if (!findById.getText().isEmpty())
             showUsers(dao.findById(Long.parseLong(findById.getText())));
         else showUsers(getUsersList());
@@ -119,17 +120,16 @@ public class MainController implements Initializable {
         deleteButton.setVisible(false);
     }
 
-/*
-    public void findByAccessList() throws IOException, SQLException {
+    public void findByAccessList() {
         if (findByAccess.getValue() != null)
             showUsers(dao.findByAccess((AccessLevel)findByAccess.getValue()));
         else showUsers(getUsersList());
         editButton.setVisible(false);
         deleteButton.setVisible(false);
-    }*/
+    }
 
     @FXML
-    private void deleteButton() throws IOException, SQLException {
+    private void deleteButton() {
         dao.deleteUser(selectedUser);
         showUsers(getUsersList());
     }

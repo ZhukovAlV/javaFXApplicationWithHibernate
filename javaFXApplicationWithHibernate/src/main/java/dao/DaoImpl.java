@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 public class DaoImpl implements DAO {
@@ -61,12 +60,22 @@ public class DaoImpl implements DAO {
         return listUser;
 
     }
-/*
-    @Override
-    public ObservableList<User> findByAccess(AccessLevel accessLevel) throws IOException, SQLException {
-        ObservableList<User> userList = FXCollections.observableArrayList();
 
-    }*/
+    @Override
+    public ObservableList<User> findByAccess(AccessLevel accessLevel) {
+        ObservableList<User> listUser = FXCollections.observableArrayList();
+        Session session = sessionFactory.openSession();
+
+        Query query = session.createQuery("FROM User WHERE accessLvl=:accessLevel");
+        query.setParameter("accessLevel", accessLevel);
+
+        for (Object user : query.getResultList()) {
+            listUser.add((User) user);
+        }
+        session.close();
+
+        return listUser;
+    }
 
     public ObservableList<AccessLevel> getAccessLevelList() {
         ObservableList<AccessLevel> listAccessLevel = FXCollections.observableArrayList();
