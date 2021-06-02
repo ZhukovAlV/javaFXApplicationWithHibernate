@@ -13,4 +13,5 @@ public interface DAO {
     ObservableList<User> findByLogin(String login) throws IOException, SQLException;
     ObservableList<User> findById(Long id) throws IOException, SQLException;
     /*  ObservableList<User> findByAccess(AccessLevel accessLevel) throws IOException, SQLException;*/
+    void deleteUserDao(User user);
 }

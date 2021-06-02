@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.Query;
@@ -68,4 +69,13 @@ public class DaoImpl implements DAO {
         ObservableList<User> userList = FXCollections.observableArrayList();
 
     }*/
+
+    @Override
+    public void deleteUserDao(User user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();;
+        session.delete(user);
+        transaction.commit();
+        session.close();
+    }
 }

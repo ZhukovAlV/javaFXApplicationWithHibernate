@@ -127,4 +127,10 @@ public class MainController implements Initializable {
         editButton.setVisible(false);
         deleteButton.setVisible(false);
     }*/
+
+    @FXML
+    private void deleteButton() throws IOException, SQLException {
+        dao.deleteUserDao(selectedUser);
+        showUsers(getUsersList());
+    }
 }
