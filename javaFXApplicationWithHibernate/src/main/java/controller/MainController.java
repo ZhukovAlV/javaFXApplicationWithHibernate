@@ -21,8 +21,10 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    DAO dao = new DaoImpl();
-    User selectedUser = null;
+    private DAO dao = new DaoImpl();
+    private User selectedUser = null;
+    private ObservableList<User> listForExport;
+    private ExcelController excelController = new ExcelController();
 
     @FXML
     private Button exitButton;
@@ -66,6 +68,10 @@ public class MainController implements Initializable {
     }
 
     public void showUsers(ObservableList<User> list) {
+        // Этот список для выгрузки в excel
+        listForExport = list;
+
+        // А это для наполнения tableView
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -162,5 +168,9 @@ public class MainController implements Initializable {
         // Ждем закрытия нового окна и обновляем список в текущем окне
         stage.showAndWait();
         showUsers(getUsersList());
+    }
+
+    public void exportToExcel() throws IOException {
+        excelController.toExcel(listForExport);
     }
 }
