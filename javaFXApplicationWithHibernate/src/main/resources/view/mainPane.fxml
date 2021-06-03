@@ -23,6 +23,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
+                  <MenuItem fx:id="buttonExportToExcel" mnemonicParsing="false" onAction="#exportToExcel" text="Экспорт в xls" />
                         <MenuItem mnemonicParsing="false" onAction="#exitButton" text="Выход" />
                     </items>
                 </Menu>
