@@ -20,13 +20,10 @@ public class DaoImpl implements DAO {
 
     public ObservableList<User> findAll() {
         ObservableList<User> listUser = FXCollections.observableArrayList();
-
-        log.info("Open session for method findAll()");
         Session session = sessionFactory.openSession();
         for (Object user : session.createQuery("FROM User").list()) {
             listUser.add((User) user);
         }
-        log.info("Close session for method findAll()");
         session.close();
 
         return listUser;
@@ -35,8 +32,6 @@ public class DaoImpl implements DAO {
     @Override
     public ObservableList<User> findByLogin(String login) {
         ObservableList<User> listUser = FXCollections.observableArrayList();
-
-        log.info("Open session for method findByLogin(String login)");
         Session session = sessionFactory.openSession();
 
         Query query = session.createQuery("FROM User WHERE login=:login");
@@ -45,7 +40,6 @@ public class DaoImpl implements DAO {
         for (Object user : query.getResultList()) {
             listUser.add((User) user);
         }
-        log.info("Close session for method findByLogin(String login)");
         session.close();
 
         return listUser;
@@ -54,8 +48,6 @@ public class DaoImpl implements DAO {
     @Override
     public ObservableList<User> findById(Long id) {
         ObservableList<User> listUser = FXCollections.observableArrayList();
-
-        log.info("Open session for method findById(Long id)");
         Session session = sessionFactory.openSession();
 
         Query query = session.createQuery("FROM User WHERE id=:id");
@@ -64,7 +56,6 @@ public class DaoImpl implements DAO {
         for (Object user : query.getResultList()) {
             listUser.add((User) user);
         }
-        log.info("Close session for method findById(Long id)");
         session.close();
 
         return listUser;
@@ -74,8 +65,6 @@ public class DaoImpl implements DAO {
     @Override
     public ObservableList<User> findByAccess(AccessLevel accessLevel) {
         ObservableList<User> listUser = FXCollections.observableArrayList();
-
-        log.info("Open session for method findByAccess(AccessLevel accessLevel)");
         Session session = sessionFactory.openSession();
 
         Query query = session.createQuery("FROM User WHERE accessLvl=:accessLevel");
@@ -84,7 +73,6 @@ public class DaoImpl implements DAO {
         for (Object user : query.getResultList()) {
             listUser.add((User) user);
         }
-        log.info("Close session for method findByAccess(AccessLevel accessLevel)");
         session.close();
 
         return listUser;
@@ -92,14 +80,11 @@ public class DaoImpl implements DAO {
 
     public ObservableList<AccessLevel> getAccessLevelList() {
         ObservableList<AccessLevel> listAccessLevel = FXCollections.observableArrayList();
-
-        log.info("Open session for method getAccessLevelList()");
         Session session = sessionFactory.openSession();
 
         for (Object accessLevel : session.createQuery("FROM AccessLevel").list()) {
             listAccessLevel.add((AccessLevel) accessLevel);
         }
-        log.info("Close session for method getAccessLevelList()");
         session.close();
 
         return listAccessLevel;
@@ -107,52 +92,40 @@ public class DaoImpl implements DAO {
 
     @Override
     public void deleteUser(User user) {
-        log.info("Open session for method deleteUser(User user)");
         Session session = sessionFactory.openSession();
-
-        log.info("Open transaction for method deleteUser(User user)");
+        log.info("Open transaction for method deleteUser(User user) for " + user.getLogin());
         Transaction transaction = session.beginTransaction();
 
         session.delete(user);
 
-        log.info("Commit transaction for method deleteUser(User user)");
+        log.info("Commit transaction for method deleteUser(User user) for " + user.getLogin());
         transaction.commit();
-
-        log.info("Close session for method deleteUser(User user)");
         session.close();
     }
 
     public void insertUser(String login, String password, AccessLevel accesLvl) {
-        log.info("Open session for method insertUser(String login, String password, AccessLevel accesLvl)");
         Session session = sessionFactory.openSession();
-
-        log.info("Open transaction for method insertUser(String login, String password, AccessLevel accesLvl)");
+        log.info("Open transaction for method insertUser(String login, String password, AccessLevel accesLvl) for " + login);
         Transaction transaction = session.beginTransaction();
 
         User user = new User(login, password, accesLvl, LocalDateTime.now());
         session.save(user);
 
-        log.info("Commit transaction for method insertUser(String login, String password, AccessLevel accesLvl)");
+        log.info("Commit transaction for method insertUser(String login, String password, AccessLevel accesLvl) for " + login);
         transaction.commit();
-
-        log.info("Close session for method insertUser(String login, String password, AccessLevel accesLvl)");
         session.close();
     }
 
     public void updateUser(Long id, String login, String password, AccessLevel accesLvl) {
-        log.info("Open session for method updateUser(Long id, String login, String password, AccessLevel accesLvl)");
         Session session = sessionFactory.openSession();
-
-        log.info("Open transaction for method updateUser(Long id, String login, String password, AccessLevel accesLvl)");
+        log.info("Open transaction for method updateUser(Long id, String login, String password, AccessLevel accesLvl) for "  + login);
         Transaction transaction = session.beginTransaction();
 
         User user = new User(id, login, password, accesLvl, findById(id).get(0).getDateOfCreation(), LocalDateTime.now());
         session.update(user);
-
-        log.info("Commit transaction for method updateUser(Long id, String login, String password, AccessLevel accesLvl)");
         transaction.commit();
 
-        log.info("Close session for method updateUser(Long id, String login, String password, AccessLevel accesLvl)");
+        log.info("Close session for method updateUser(Long id, String login, String password, AccessLevel accesLvl) for" + login);
         session.close();
     }
 }
