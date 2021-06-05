@@ -7,6 +7,7 @@ import entity.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -68,12 +69,16 @@ public class SecondController implements Initializable {
     private void insertOrUpdateUser() {
         Stage stage = (Stage) okButton.getScene().getWindow();
 
-        if (idField.getText().isEmpty()) {
-            dao.insertUser(loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+        if (loginField.getText().isEmpty() || passwordField.getText().isEmpty() || accessLvlField.getValue() == null) {
+            showAlertWithDefaultHeaderText();
         } else {
-            dao.updateUser(Long.parseLong(idField.getText()), loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            if (idField.getText().isEmpty()) {
+                dao.insertUser(loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            } else {
+                dao.updateUser(Long.parseLong(idField.getText()), loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            }
+            stage.close();
         }
-        stage.close();
     }
 
     public void preloadData(User user) {
@@ -83,5 +88,13 @@ public class SecondController implements Initializable {
         accessLvlField.setValue(user.getAccessLvl());
         dateOfCreation.setText(String.valueOf(user.getDateOfCreation()));
         dateOfModification.setText(String.valueOf(user.getDateOfModification()));
+    }
+
+    private void showAlertWithDefaultHeaderText() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Статус");
+        alert.setContentText("Данные заполнены некорректно");
+
+        alert.showAndWait();
     }
 }
