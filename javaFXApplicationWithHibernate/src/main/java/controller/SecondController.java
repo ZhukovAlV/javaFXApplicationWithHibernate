@@ -4,23 +4,25 @@ import dao.DAO;
 import dao.DaoImpl;
 import entity.AccessLevel;
 import entity.User;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SecondController implements Initializable {
-    DAO dao = new DaoImpl();
+    private DAO dao = new DaoImpl();
+    // Для валидации полей ValidationSupport
+    private ValidationSupport validationSupport = new ValidationSupport();
 
     @FXML
     private Button okButton;
@@ -43,8 +45,15 @@ public class SecondController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboBoxAccessLvl();
+        setupValidation();
     }
 
+    public void setupValidation() {
+        // validationSupport.setErrorDecorationEnabled(true);
+        validationSupport.registerValidator(loginField, Validator.createEmptyValidator("Поле логина не может быть пустым"));
+        validationSupport.registerValidator(passwordField, Validator.createEmptyValidator("Поле пароля не может быть пустым"));
+        validationSupport.registerValidator(accessLvlField, Validator.createEmptyValidator("Поле роли не может быть пустым"));
+    }
     public void comboBoxAccessLvl() {
         ObservableList<AccessLevel> list = dao.getAccessLevelList();
         accessLvlField.setItems(list);
@@ -60,12 +69,16 @@ public class SecondController implements Initializable {
     private void insertOrUpdateUser() {
         Stage stage = (Stage) okButton.getScene().getWindow();
 
-        if (idField.getText().isEmpty()) {
-            dao.insertUser(loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+        if (loginField.getText().isEmpty() || passwordField.getText().isEmpty() || accessLvlField.getValue() == null) {
+            showAlertWithDefaultHeaderText();
         } else {
-            dao.updateUser(Long.parseLong(idField.getText()), loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            if (idField.getText().isEmpty()) {
+                dao.insertUser(loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            } else {
+                dao.updateUser(Long.parseLong(idField.getText()), loginField.getText(), passwordField.getText(), accessLvlField.getValue());
+            }
+            stage.close();
         }
-        stage.close();
     }
 
     public void preloadData(User user) {
@@ -75,5 +88,13 @@ public class SecondController implements Initializable {
         accessLvlField.setValue(user.getAccessLvl());
         dateOfCreation.setText(String.valueOf(user.getDateOfCreation()));
         dateOfModification.setText(String.valueOf(user.getDateOfModification()));
+    }
+
+    private void showAlertWithDefaultHeaderText() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Статус");
+        alert.setContentText("Данные заполнены некорректно");
+
+        alert.showAndWait();
     }
 }
