@@ -55,6 +55,12 @@
                 <Label contentDisplay="RIGHT" text="id:" textAlignment="RIGHT" GridPane.rowIndex="1" />
                 <Label contentDisplay="RIGHT" prefHeight="17.0" prefWidth="46.0" text="Логин:" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <Label contentDisplay="RIGHT" text="Уровень доступа:" textAlignment="RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <DatePicker GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <DatePicker prefHeight="25.0" prefWidth="180.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <DatePicker GridPane.columnIndex="3" />
+            <DatePicker prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="5" />
+            <Label text="Дата создания" GridPane.columnIndex="1" />
+            <Label text="Дата модификации" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </children>
