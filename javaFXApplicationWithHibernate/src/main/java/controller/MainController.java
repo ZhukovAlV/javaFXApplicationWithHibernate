@@ -18,6 +18,7 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -61,6 +62,32 @@ public class MainController implements Initializable {
         findByAccess.setItems(dao.getAccessLevelList());
         editButton.setVisible(false);
         deleteButton.setVisible(false);
+
+        // Здесь преобразуем отображение даты как нужно в ввиде "HH:mm:ss dd-MM-yyyy" в TableView
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        dateOfCreationColumn.setCellFactory(column -> new TableCell<User, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty) {
+                    setText("");
+                } else {
+                    setText(formatter.format(date));
+                }
+            }
+        });
+
+        dateOfModificationColumn.setCellFactory(column -> new TableCell<User, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty) {
+                    setText("");
+                } else {
+                    setText(formatter.format(date));
+                }
+            }
+        });
     }
 
     public ObservableList<User> getUsersList() {

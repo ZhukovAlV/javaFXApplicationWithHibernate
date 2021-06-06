@@ -21,7 +21,7 @@ public class ExcelController {
 
     public void toExcel(List listForExport) throws IOException {
         List<User> list = listForExport;
-        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
 
         // Создаем лист -вкладку sheet
         HSSFWorkbook workbook = new HSSFWorkbook();
