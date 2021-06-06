@@ -64,7 +64,7 @@ public class MainController implements Initializable {
         deleteButton.setVisible(false);
 
         // Здесь преобразуем отображение даты как нужно в ввиде "HH:mm:ss dd-MM-yyyy" в TableView
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
         dateOfCreationColumn.setCellFactory(column -> new TableCell<User, LocalDateTime>() {
             @Override
             protected void updateItem(LocalDateTime date, boolean empty) {
