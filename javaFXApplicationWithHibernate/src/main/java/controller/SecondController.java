@@ -17,12 +17,14 @@ import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class SecondController implements Initializable {
     private DAO dao = new DaoImpl();
     // Для валидации полей ValidationSupport
     private ValidationSupport validationSupport = new ValidationSupport();
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
 
     @FXML
     private Button okButton;
@@ -86,8 +88,8 @@ public class SecondController implements Initializable {
         loginField.setText(user.getLogin());
         passwordField.setText(user.getPassword());
         accessLvlField.setValue(user.getAccessLvl());
-        dateOfCreation.setText(String.valueOf(user.getDateOfCreation()));
-        dateOfModification.setText(String.valueOf(user.getDateOfModification()));
+        dateOfCreation.setText(formatter.format(user.getDateOfCreation()));
+        dateOfModification.setText(formatter.format(user.getDateOfModification()));
     }
 
     private void showAlertWithDefaultHeaderText() {
